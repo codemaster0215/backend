@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="/main.css" rel="stylesheet">
+</head>
+<body class="grey-bg">
+    <!-- <%- JSON.stringify(글제목) %> -->
+
+    <%- include('nav.ejs') %>
+
+    <div class="white-bg">
+        <% for(let i = 0; i < 글제목.length; i++){ %>
+            <div class="list-box">
+        <h4>
+          <a href="/detail/<%= 글제목[i]._id %>">
+            <%= 글제목[i].title %>
+          </a>
+        <a href="/edit/<%= 글제목[i]._id %>">✏️</a>
+        <span class="delete" data-id="<%= 글제목[i]._id %>">🗑️</span>
+      </h4>
+      <p> 글내용임</p>
+        </div>
+      </div>
+      </div>
+    <% } %>
+
+    </div> 
+
+    <script>
+      
+      document.querySelectorAll('.delete')[0]
+      .addEventListener('click', function(e){
+        e.target.dataset.id
+        fetch('/delete?docid=' + e.target.dataset.id, {
+          method : 'DELETE'
+        })
+        .then((r)=>r.text())
+        .then((r)=>{
+          e.target.parentElement.parentElement.style.display = 'none'
+        })
+      })
+      document.querySelectorAll('.delete')[1]
+      .addEventListener('click', function(e){
+        e.target.dataset.id
+        fetch('/delete?docid=' + e.target.dataset.id, {
+          method : 'DELETE'
+        })
+      })
+
+      document.querySelectorAll('.delete')[2]
+      .addEventListener('click', function(e){
+        e.target.dataset.id
+        fetch('/delete?docid=' + e.target.dataset.id, {
+          method : 'DELETE'
+        })
+      })
+      
+
+    </script>
+  
+  </body>
+</html>
